@@ -1,6 +1,12 @@
 import Header from "./header";
+import { useState } from "react";
 
 const Login = () => {
+  const [signIn, setSignIn] = useState(true);
+  const handleSignUp = () => {
+    setSignIn(!signIn);
+  };
+
   return (
     <div className="login relative w-full h-screen">
       <Header />
@@ -16,7 +22,23 @@ const Login = () => {
       <div className="absolute inset-0 flex justify-center items-center z-[101] mt-5 md:mt-10 lg:mt-24">
         <div className="w-11/12 bg-black bg-opacity-70 p-8 rounded-lg max-w-md md:w-10/12 md:p-6 md:rounded-md md:max-w-sm">
           <form className="flex flex-col items-center gap-6 font-semibold md:gap-5 md:font-normal">
-            <h2 className="text-3xl text-white font-semibold md:text-2xl md:font-bold">Sign In</h2>
+            <h2 className="text-3xl text-white font-semibold md:text-2xl md:font-bold">
+              {signIn ? "Sign In" : "Sign Up"}
+            </h2>
+            {!signIn && (
+              <div className="flex gap-4">
+                <input
+                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+                  type="text"
+                  placeholder="First name"
+                />
+                <input
+                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+                  type="text"
+                  placeholder="Last name"
+                />
+              </div>
+            )}
             <input
               className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
               type="text"
@@ -28,19 +50,25 @@ const Login = () => {
               placeholder="Password"
             />
             <button className="hover:bg-red-700 w-full px-4 py-3 bg-red-600 rounded-lg text-white text-xl font-semibold md:px-3 md:py-2 md:text-base md:font-medium">
-              Sign In
+              {signIn ? "Sign In" : "Sign Up"}
             </button>
-            <button className="w-full px-4 py-2 bg-transparent text-zinc-300 font-bold text-base md:px-3 md:py-2 md:text-base md:font-medium">
-              Forgot Password?
-            </button>
+            {signIn && (
+              <button className="w-full px-4 py-2 bg-transparent text-zinc-300 font-bold text-base md:px-3 md:py-2 md:text-base md:font-medium">
+                Forgot Password?
+              </button>
+            )}
             <h2 className="text-base text-zinc-400 mx-5 md:text-sm md:mx-3">
-              New to Netflix?
-              <span className="hover:underline cursor-pointer font-semibold text-zinc-300 ml-5 md:ml-2">
-                Sign up now
+              {signIn ? "New to Netflix ?" : "Already have account ?"}
+              <span
+                onClick={() => handleSignUp()}
+                className="hover:underline cursor-pointer font-semibold text-zinc-300 ml-5 md:ml-2"
+              >
+                {signIn ? "Sign Up now" : "Sign In now"}
               </span>
             </h2>
             <p className="text-sm text-zinc-400 md:text-xs">
-              This page is protected by Google reCAPTCHA to ensure you are not a bot. 
+              This page is protected by Google reCAPTCHA to ensure you are not a
+              bot.
               <span className="mx-2 text-zinc-200 font-bold cursor-pointer hover:underline">
                 Learn more
               </span>
