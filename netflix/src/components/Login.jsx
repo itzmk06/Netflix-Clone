@@ -1,15 +1,30 @@
 import Header from "./header";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import {validateData} from "../utils/validateData";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Login = () => {
   const [signIn, setSignIn] = useState(true);
   const handleSignUp = () => {
     setSignIn(!signIn);
   };
+  const email=useRef(null);
+  const password=useRef(null);
+  const handleButton=()=>{
+        const validate_result=validateData(email.current.value,password.current.value);
+        if(validate_result===null){
+            toast.success("Validation Successful!");
+        }else{
+            	toast.error(validate_result);
+        }
+  }
+  
 
   return (
     <div className="login relative w-full h-screen">
       <Header />
+      <Toaster/>
 
       <img
         className="w-full h-full absolute z-[99] object-center object-cover left-0 top-0"
@@ -21,13 +36,13 @@ const Login = () => {
 
       <div className="absolute inset-0 flex justify-center items-center z-[101] mt-5 md:mt-10 lg:mt-24">
         <div className="w-11/12 bg-black bg-opacity-70 p-8 rounded-lg max-w-md md:w-10/12 md:p-6 md:rounded-md md:max-w-sm">
-          <form className="flex flex-col items-center gap-6 font-semibold md:gap-5 md:font-normal">
+          <form onSubmit={(e)=>e.preventDefault()} className="flex flex-col items-center gap-6 font-semibold md:gap-5 md:font-normal">
             <h2 className="text-3xl text-white font-semibold md:text-2xl md:font-bold">
               {signIn ? "Sign In" : "Sign Up"}
             </h2>
             {!signIn && (
               <div className="flex gap-4">
-                <input
+                <input 
                   className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
                   type="text"
                   placeholder="First name"
@@ -40,16 +55,18 @@ const Login = () => {
               </div>
             )}
             <input
+                ref={email}
               className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
               type="text"
               placeholder="Email or Mobile number"
             />
             <input
+            ref={password}
               className="bg-black outline-none outline-zinc-400 focus:outline-red-500 text-white bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
               type="password"
               placeholder="Password"
             />
-            <button className="hover:bg-red-700 w-full px-4 py-3 bg-red-600 rounded-lg text-white text-xl font-semibold md:px-3 md:py-2 md:text-base md:font-medium">
+            <button onClick={()=>handleButton()}  className="hover:bg-red-700 w-full px-4 py-3 bg-red-600 rounded-lg text-white text-xl font-semibold md:px-3 md:py-2 md:text-base md:font-medium">
               {signIn ? "Sign In" : "Sign Up"}
             </button>
             {signIn && (
