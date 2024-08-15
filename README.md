@@ -1,6 +1,6 @@
 ## Netflix Clone
 
-A Netflix clone built with React, Tailwind CSS, and Node.js (or Spring Boot) to replicate the core features of the popular streaming service. This project showcases a modern full-stack application with user authentication, movie browsing, video streaming, and responsive design.
+A Netflix clone built with React, Tailwind CSS, and Node.js to replicate the core features of the popular streaming service. This project showcases a modern full-stack application with user authentication, movie browsing, video streaming, and responsive design.
 
 ### Features
 
@@ -15,7 +15,6 @@ A Netflix clone built with React, Tailwind CSS, and Node.js (or Spring Boot) to 
 - **Frontend**: React, Tailwind CSS, React Router
 - **Backend**: Node.js with Express (or Spring Boot)
 - **Database**: MongoDB, PostgreSQL, or MySQL
-- **Video Storage**: AWS S3 (or another cloud storage service)
 - **Authentication**: JWT (or OAuth)
 
 ### Getting Started
