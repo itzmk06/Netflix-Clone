@@ -2,19 +2,30 @@ import Header from "./header";
 import { useRef, useState } from "react";
 import { validateData } from "../utils/validateData";
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [signIn, setSignIn] = useState(true);
   const handleSignUp = () => {
     setSignIn(!signIn);
   };
   const email = useRef(null);
   const password = useRef(null);
+  const firstName = useRef(null);
+  const lastName = useRef(null);
+  const photo = useRef(null);
+
   const handleButton = () => {
     const validate_result = validateData(
       email.current.value,
@@ -37,16 +48,42 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          toast.success("SignUp Successful!");
           console.log(user);
+          toast.success("SignUp Successful!");
+
+          updateProfile(user, {
+            displayName: firstName.current.value,
+            photoURL: photo.current.value,
+          })
+            .then(() => {
+              // Profile updated!
+              console.log(auth.currentUser);
+              console.log(user);
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+              // ...
+            })
+            .catch((error) => {
+              // An error occurred
+              {
+                error + " has occured!";
+              }
+              // ...
+            });
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
-          const errorMessage = error.message;
-          toast.error(
-            "Something went wrong! " + " " + errorCode
-          );
+          //   const errorMessage = error.message;
+          toast.error("Something went wrong! " + " " + errorCode);
           // ..
         });
     } else {
@@ -61,12 +98,13 @@ const Login = () => {
           const user = userCredential.user;
           console.log(user);
           toast.success("Sign In Successful!");
+          navigate("/browse");
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-        //   console.log(errorCode);
+          //   console.log(errorCode);
           toast.error(
             "Something went wrong! " + " " + errorCode + " " + errorMessage
           );
@@ -87,7 +125,7 @@ const Login = () => {
 
       <div className="absolute inset-0 bg-black opacity-50 z-[100]"></div>
 
-      <div className="absolute inset-0 flex justify-center items-center z-[101] mt-5 md:mt-10 lg:mt-24">
+      <div className="absolute inset-0 flex justify-center items-center z-[101] mt-5 md:mt-10">
         <div className="w-11/12 bg-black bg-opacity-70 p-8 rounded-lg max-w-md md:w-10/12 md:p-6 md:rounded-md md:max-w-sm">
           <form
             onSubmit={(e) => e.preventDefault()}
@@ -99,37 +137,49 @@ const Login = () => {
             {!signIn && (
               <div className="flex gap-4">
                 <input
-                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-normal"
                   type="text"
+                  ref={firstName}
                   placeholder="First name"
                 />
                 <input
-                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+                  className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-normal"
                   type="text"
+                  ref={lastName}
                   placeholder="Last name"
                 />
               </div>
             )}
             <input
               ref={email}
-              className="bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+              className="font-normal bg-black text-white outline-none outline-zinc-400 focus:outline-red-500 bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
               type="text"
               placeholder="Email or Mobile number"
             />
+
             <input
               ref={password}
-              className="bg-black outline-none outline-zinc-400 focus:outline-red-500 text-white bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+              className="font-normal bg-black outline-none outline-zinc-400 focus:outline-red-500 text-white bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
               type="password"
               placeholder="Password"
             />
+            {!signIn && (
+              <input
+                ref={photo}
+                className="font-normal bg-black outline-none outline-zinc-400 focus:outline-red-500 text-white bg-opacity-70 w-full px-4 py-3 rounded-lg text-xl md:px-3 md:py-2 md:rounded-md md:text-base md:font-medium"
+                type="text"
+                placeholder="Profile pic link"
+              />
+            )}
+
             <button
               onClick={() => handleButton()}
-              className="hover:bg-red-700 w-full px-4 py-3 bg-red-600 rounded-lg text-white text-xl font-semibold md:px-3 md:py-2 md:text-base md:font-medium"
+              className="hover:bg-red-700 w-full px-4 py-3 bg-red-600 rounded-lg text-white text-xl font-normal md:px-3 md:py-2 md:text-base md:font-medium"
             >
               {signIn ? "Sign In" : "Sign Up"}
             </button>
             {signIn && (
-              <button className="w-full px-4 py-2 bg-transparent text-zinc-300 font-bold text-base md:px-3 md:py-2 md:text-base md:font-medium">
+              <button className="w-full px-4 py-2 bg-transparent text-zinc-300 font-semibold text-base md:px-3 md:py-2 md:text-base md:font-medium">
                 Forgot Password?
               </button>
             )}
