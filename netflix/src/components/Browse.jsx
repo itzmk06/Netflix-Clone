@@ -1,12 +1,16 @@
-import Header2 from "./Header2";
+import useNowPlaying from "../utils/useNowPlaying";
+import HeadContainer from "./HeadContainer";
+import Header from "./Header";
 
 const Browse=()=>{
+    useNowPlaying();
     return(
         <div>
-            <Header2/>
+            <Header/>
+            <HeadContainer/>
+
         </div>
     )
-
 }
 
 export default Browse;

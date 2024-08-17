@@ -1,4 +1,4 @@
-import Header from "./header";
+import Header from "./Header";
 import { useRef, useState } from "react";
 import { validateData } from "../utils/validateData";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,6 +11,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { LOGIN_BACK } from "../utils/constants";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -68,13 +69,12 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
-              navigate("/browse");
               // ...
             })
             .catch((error) => {
               // An error occurred
               {
-                error + " has occured!";
+                error + " has occurred!";
               }
               // ...
             });
@@ -119,7 +119,7 @@ const Login = () => {
 
       <img
         className="w-full h-full absolute z-[99] object-center object-cover left-0 top-0"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/20bf1f4d-1c73-48fd-8689-310d6dd80efc/81bdc063-cb8f-4afe-8a02-a3131ca4ef5e/IN-en-20240812-POP_SIGNUP_TWO_WEEKS-perspective_WEB_7998f3b6-63e3-424a-8328-550cf777ddce_medium.jpg"
+        src={LOGIN_BACK}
         alt="Background"
       />
 

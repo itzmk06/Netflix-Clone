@@ -34,3 +34,10 @@ means inside browse, login etc -> which are the child components of body
 
 when taking the values for working after sign up take it from auth.currentUser not from user because user will  not have updated values 
 
+whenever we are making an api call we have to pass in the options 
+
+_> the api's or the actions will be called twice because of strict mode 
+_> strict mode makes the components to render twice to find any inconsistencies 
+_> this will happen in dev mode not in production mode 
+
+
