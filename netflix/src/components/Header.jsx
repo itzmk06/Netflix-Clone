@@ -45,7 +45,7 @@ const Header = () => {
       });
   };
   return (
-    <div className="md:mt-[-2rem] md:px-1 z-[1000] absolute  px-5 bg-gradient-to-b from-black h-[8rem] bg-opacity-65 w-full">
+    <div className="md:mt-[-2.3rem] md:px-1 z-[1000] absolute mt-[-1.5rem]  px-5 bg-gradient-to-b from-black h-[8rem] bg-opacity-65 w-full">
       <div className="flex  justify-between items-center px-5">
         <img
           className="w-36"
@@ -65,7 +65,7 @@ const Header = () => {
                     </button>
                     <button
                       onClick={() => handleSignOut()}
-                      className="bg-red-700 flex items-center justify-center rounded-full  mx-auto px-[0.4rem]  md:px-[0.5rem] md:py-[0.1rem]"
+                      className="bg-red-700 flex items-center justify-center rounded-full  mx-auto px-[0.4rem] "
                     >
                       <i className="fi fi-ss-sign-out-alt text-white text-2xl py-1 mt-1 px-1 ml-2 md:text-2xl md:mt-1 md:ml-2"></i>
                     </button>
