@@ -1,15 +1,15 @@
 import { useDispatch } from "react-redux";
 import { options, url } from "./constants";
-import { addNowPlayingMovies } from "./MovieSlice";
 import { useEffect } from "react";
+import { addUpcoming } from "./MovieSlice";
 
-const useNowPlaying=()=>{
+const useUpcoming=()=>{
     const dispatch=useDispatch();
 
     const fetchData=async()=>{
-        const data=await fetch(url+"now_playing",options);
+        const data=await fetch(url+"upcoming",options);
         const json_data=await data?.json();
-        dispatch(addNowPlayingMovies(json_data?.results));
+        dispatch(addUpcoming(json_data?.results));
     }
 
     useEffect(()=>{
@@ -18,4 +18,4 @@ const useNowPlaying=()=>{
     
 
 }
-export default useNowPlaying;
+export default useUpcoming;

@@ -1,15 +1,16 @@
 import { useDispatch } from "react-redux";
 import { options, url } from "./constants";
-import { addNowPlayingMovies } from "./MovieSlice";
+import {addPopular } from "./MovieSlice";
 import { useEffect } from "react";
 
-const useNowPlaying=()=>{
+const usePopular=()=>{
     const dispatch=useDispatch();
 
     const fetchData=async()=>{
-        const data=await fetch(url+"now_playing",options);
+        const data=await fetch(url+"popular",options);
         const json_data=await data?.json();
-        dispatch(addNowPlayingMovies(json_data?.results));
+        dispatch(addPopular(json_data?.results));
+        // console.log("from pop",json_data)
     }
 
     useEffect(()=>{
@@ -18,4 +19,4 @@ const useNowPlaying=()=>{
     
 
 }
-export default useNowPlaying;
+export default usePopular;
