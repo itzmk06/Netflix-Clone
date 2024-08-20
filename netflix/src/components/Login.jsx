@@ -49,7 +49,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           toast.success("SignUp Successful!");
 
           updateProfile(user, {
@@ -58,8 +58,8 @@ const Login = () => {
           })
             .then(() => {
               // Profile updated!
-              console.log(auth.currentUser);
-              console.log(user);
+              // console.log(auth.currentUser);
+              // console.log(user);
               const { uid, email, displayName, photoURL } = auth.currentUser;
               dispatch(
                 addUser({

@@ -1,3 +1,4 @@
+
 import HeadMovieContainer from "./HeadMovieList";
 import MovieInfo from "./MovieInfo";
 import VideoContainer from "./VideoContainer";
@@ -9,8 +10,8 @@ const HeadContainer = () => {
   const popular=useSelector((store)=>store?.movies?.popular)
   const top_rated=useSelector((store)=>store?.movies?.topRated)
   const upcoming=useSelector((store)=>store?.movies?.upcoming)
-  return (
-    <div className="relative w-full h-screen bg-black">
+  return  (
+    <div className="relative w-full h-screen bg-black ">
       <VideoContainer />
       <MovieInfo />
       <div className="relative md:mt-[33%] mt-[83%] text-white  bg-black w-full h-screen"> 

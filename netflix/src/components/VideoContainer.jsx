@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const VideoContainer = () => {
   useTrailerInfo();
   const trailer_key = useSelector((store) => store?.movie_video?.trailer_key);
-  console.log(trailer_key)
+  // console.log(trailer_key)
   return (
     <div className="bg-black rounded-xl ml-3 md:ml-0 md:rounded-none fixed w-[96%] md:w-full h-screen overflow-hidden translate-y-[15%]  mt-[-3rem] md:mt-[-6rem]">
     <iframe

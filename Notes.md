@@ -40,4 +40,10 @@ _> the api's or the actions will be called twice because of strict mode
 _> strict mode makes the components to render twice to find any inconsistencies 
 _> this will happen in dev mode not in production mode 
 
+Memoization
+_> this means that if the data is already present dont make the api calls again and again
+
+
+
+
 
